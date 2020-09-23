@@ -191,7 +191,7 @@ def trainning(R, Q):
 
 		score.append(epsiode_score)
 
-	return Q, score, policy
+	return Q, score
 
 def check_path(possible_next, path):
 
@@ -251,13 +251,12 @@ def main():
 		Q          = build_Q_values_matrix(G)
 		# R          = update_reward_goal(G, R)
 
-		Q, score,policy = trainning(R, Q)
+		Q, score = trainning(R, Q)
 		df.insert(seed, f'seed {seed}', score, True)
 		# plot_score(score)
 
 		testing(Q)
 		shortest_path = nx.shortest_path(G,ORIGIN,GOAL,'weight')
-		print(f'Most efficient policy:{policy}')
 		print(f'Shortest Path        :{shortest_path}')
 
 	df['mean'] = df.mean(axis=1)
